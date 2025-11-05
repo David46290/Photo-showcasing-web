@@ -4,4 +4,4 @@ Now user can change photo using buttons.
 
 I will try adding labeling feature in the future
 
-(view.png)
+![preview](view.png)
