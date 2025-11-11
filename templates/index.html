@@ -2,18 +2,18 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>Website with Editable String</title>
+    <title>Online gallery</title>
 </head>
 <body>
-    <h1>Website content editor (begining in Flask)</h1>
+    <h1>Online gallery</h1>
     
-    <h2>current content:</h2>
+    <h2>text content:</h2>
     <p><strong>{{ content }}</strong></p>
     
     <hr>
     
     <form method="POST" action="/">
-        <h2>edited content:</h2>
+        <h2>text box:</h2>
         
         <textarea name="new_content" rows="4" cols="50" required>{{ content }}</textarea>
         <br><br>
@@ -26,7 +26,7 @@
         <img 
             src="{{url_for('static', filename='images/'+current_image_name) }}" 
             alt="current photo"
-            style="max-width: 500px; height: auto;"
+            style="max-width: 10%; height: auto;"
         >
         <div style="margin-top: 20px;">
 
