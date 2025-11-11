@@ -32,7 +32,7 @@ def get_image_list(img_dir=os.path.join(app.root_path, 'static', 'images')):
     return image_files
 
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/<int:gallery>', methods=['GET'])
+# @app.route('/<int:img_list>', methods=['GET'])
 def gallery(image_list=get_image_list()):
     global current_text
     global img_idx
@@ -50,11 +50,14 @@ def gallery(image_list=get_image_list()):
         action = request.form.get('action') # check whether user pick 'previous/next' image
         # update idx based on buttons
         if action == 'next':
-            img_idx = (img_idx + 1) % len(image_list)
+            img_idx = (img_idx + 1) % len(image_list) # using % to avoid index exceeding amount of images
         elif action == 'prev':
             img_idx = (img_idx - 1) % len(image_list)
-            if img_idx < 0:
+            if img_idx < 0: # hitting prev button while on the last image
                 img_idx = len(image_list) - 1
+        else:
+            img_idx = img_idx
+        return redirect(url_for('gallery',image_list=get_image_list()))
     
     # process display of the web (GET request)
     # send editable variable to HTML module
