@@ -31,9 +31,12 @@ def get_image_list(img_dir=os.path.join(app.root_path, 'static', 'images')):
     
     return image_files
 
+global image_list
+image_list=get_image_list()
+
 @app.route('/', methods=['GET', 'POST'])
 # @app.route('/<int:img_list>', methods=['GET'])
-def gallery(image_list=get_image_list()):
+def gallery():
     global current_text
     global img_idx
     # submit processing list (POST request)
@@ -44,7 +47,7 @@ def gallery(image_list=get_image_list()):
             # update the content of the global variable (the editable string)
             current_text = new_content
             # redirect GET request to avoid user submit multiple times after refreshing the page
-            return redirect(url_for('gallery',image_list=get_image_list())) #
+            return redirect(url_for('gallery')) #
         
         # Get a column call 'action' from the processing list
         action = request.form.get('action') # check whether user pick 'previous/next' image
@@ -57,7 +60,7 @@ def gallery(image_list=get_image_list()):
                 img_idx = len(image_list) - 1
         else:
             img_idx = img_idx
-        return redirect(url_for('gallery',image_list=get_image_list()))
+        return redirect(url_for('gallery'))
     
     # process display of the web (GET request)
     # send editable variable to HTML module
@@ -74,3 +77,4 @@ if __name__ == '__main__':
     image_folder = os.path.join(app.root_path, 'static', 'images')
     app.run(debug=True) 
     # Setting debug to be Ture so that server is auto-reload once code is changed, just for convenience
+
