@@ -33,7 +33,6 @@ def get_image_list(img_dir=os.path.join(app.root_path, 'static', 'images')):
 
 global image_list
 image_list=get_image_list()
-
 @app.route('/', methods=['GET', 'POST'])
 # @app.route('/<int:img_list>', methods=['GET'])
 def gallery():
@@ -48,7 +47,6 @@ def gallery():
             current_text = new_content
             # redirect GET request to avoid user submit multiple times after refreshing the page
             return redirect(url_for('gallery')) #
-        
         # Get a column call 'action' from the processing list
         action = request.form.get('action') # check whether user pick 'previous/next' image
         # update idx based on buttons
@@ -61,13 +59,9 @@ def gallery():
         else:
             img_idx = img_idx
         return redirect(url_for('gallery'))
-    
-    # process display of the web (GET request)
-    # send editable variable to HTML module
-    return render_template('index.html', content=current_text,
-                            current_image_name=image_list[img_idx],
-                            current_index=img_idx,
-                            total_images=len(image_list))
+    # process display of the web (GET request) and implement the changes
+    return render_template('index.html', content=current_text, current_image_name=image_list[img_idx],
+                            current_index=img_idx, total_images=len(image_list))
 
 
 
